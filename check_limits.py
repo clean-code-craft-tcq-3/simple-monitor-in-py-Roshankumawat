@@ -20,10 +20,10 @@ def check_soc(soc):
         
 def check_charge_rate(charge_rate):
     if charge_rate >0.8:
-        return True
-    else:
         print('Charge rate is out of range!')
         return False
+    else:
+        return True
         
 
 if __name__ == '__main__':
