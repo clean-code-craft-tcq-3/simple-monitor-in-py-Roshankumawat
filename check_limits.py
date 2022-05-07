@@ -19,11 +19,12 @@ def check_soc(soc):
         return True
         
 def check_charge_rate(charge_rate):
-    if charge_rate <0.8:
+    if charge_rate >0.8:
+        return True
+    else:
         print('Charge rate is out of range!')
         return False
-    else:
-        return True
+        
 
 if __name__ == '__main__':
   assert(battery_is_ok(25, 70, 0.7) is True)
