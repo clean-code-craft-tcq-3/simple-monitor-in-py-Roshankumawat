@@ -31,8 +31,8 @@ def print_text(text):
 def check_threshold_limit(lower_limit, upper_limit, value):   
     if((value<=(lower_limit+(upper_limit*5)/100) and value>=lower_limit)):
         print_text('Warning: Approaching discharge') 
-    elif((value>=(upper_limit-(upper_limit*5)/100) and value<=upper_limit)):
-        print_text('Warning: Approaching charge-peak')
+    #elif((value>=(upper_limit-(upper_limit*5)/100) and value<=upper_limit)):
+        #print_text('Warning: Approaching charge-peak')
      
 if __name__ == '__main__':
     assert(check_temperature(1) is True)
