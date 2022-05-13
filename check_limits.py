@@ -26,5 +26,15 @@ def print_text(text):
     print(text)
 
 if __name__ == '__main__':
-  assert(battery_is_ok(25, 70, 0.7) is True)
-  assert(battery_is_ok(50, 85, 0) is False)
+    assert(check_tepmerature(1) is True)
+    assert(check_tepmerature(45)is True)
+    assert(check_tepmerature(46)is False)
+    assert(check_tepmerature(-1)is False)
+    assert(check_soc(20)is True)
+    assert(check_soc(19)is False)
+    assert(check_soc(80)is True)
+    assert(check_soc(81)is False)
+    assert(check_charge_rate(0.9)is False)
+    assert(check_charge_rate(0.8)is True)
+    assert(battery_is_ok(25, 70, 0.7) is True)
+    assert(battery_is_ok(50, 85, 0) is False)
