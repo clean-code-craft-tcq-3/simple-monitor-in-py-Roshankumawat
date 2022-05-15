@@ -1,5 +1,7 @@
 import re
 import googletrans
+from googletrans import Translator
+translator = Translator()
 
 def battery_is_ok(temperature, soc, charge_rate):
     return(check_temperature(temperature) and check_soc(soc) and check_charge_rate(charge_rate))
@@ -25,10 +27,12 @@ def check_feature_limit(lower_limit, upper_limit, feature_value, feature):
 
 def check_lower_threshold_limit(lower_limit, upper_limit, feature_value):   
     if((feature_value<=(lower_limit+(upper_limit*5)/100) and feature_value>=lower_limit)):
+        print_text(translator.translate('Warning: Approaching discharge', dest='de'))
         print_text('Warning: Approaching discharge') 
 
 def check_upper_threshold_limit(upper_limit, feature_value):
     if((feature_value>=(upper_limit-(upper_limit*5)/100) and feature_value<=upper_limit)):
+        print_text(translator.translate('Warning: Approaching charge-peak', dest='de'))
         print_text('Warning: Approaching charge-peak')
         
 def get_unit_from_feature(feature_value, feature):
