@@ -1,4 +1,6 @@
 import re
+import googletrans
+
 def battery_is_ok(temperature, soc, charge_rate):
     return(check_temperature(temperature) and check_soc(soc) and check_charge_rate(charge_rate))
        
