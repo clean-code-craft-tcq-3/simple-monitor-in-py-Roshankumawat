@@ -27,7 +27,7 @@ def check_feature_limit(lower_limit, upper_limit, feature_value, feature):
 
 def check_lower_threshold_limit(lower_limit, upper_limit, feature_value):   
     if((feature_value<=(lower_limit+(upper_limit*5)/100) and feature_value>=lower_limit)):
-        print_text(translator.translate( 'Warning: Approaching discharge',  src='en', dest='de'))
+       
         print_text('Warning: Approaching discharge') 
 
 def check_upper_threshold_limit(upper_limit, feature_value):
@@ -43,7 +43,11 @@ def get_value_from_feature(feature_value, feature):
     
 def print_text(text):
     print(text)
-     
+    print(translate_warning(text, 'de')
+          
+def translate_warning(text, language):
+    return translator.translate( text,  src='en', dest=language)
+    
 if __name__ == '__main__':
     
     assert(get_unit_from_feature('20F', 'Temperature')=='F')
