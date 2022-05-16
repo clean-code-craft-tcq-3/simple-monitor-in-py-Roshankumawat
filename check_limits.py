@@ -1,5 +1,5 @@
 import re
-import googletrans
+#import googletrans
 from googletrans import Translator
 translator = Translator()
 
