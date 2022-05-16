@@ -43,7 +43,7 @@ def get_value_from_feature(feature_value, feature):
     
 def print_text(text):
     print(text)
-    print(translate_warning(text, 'de')
+    print(translate_warning(text, 'de'))
           
 def translate_warning(text, language):
     return translator.translate( text,  src='en', dest=language)
