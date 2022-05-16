@@ -46,7 +46,8 @@ def print_text(text):
     print(translate_warning(text, 'de'))
           
 def translate_warning(text, language):
-    return translator.translate( text,  src='en', dest=language)
+    translated_text= translator.translate( text,  src='en', dest=language)
+    return(translated_text)
     
 if __name__ == '__main__':
     
