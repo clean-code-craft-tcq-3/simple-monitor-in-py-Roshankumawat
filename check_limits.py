@@ -27,7 +27,7 @@ def check_feature_limit(lower_limit, upper_limit, feature_value, feature):
 
 def check_lower_threshold_limit(lower_limit, upper_limit, feature_value):   
     if((feature_value<=(lower_limit+(upper_limit*5)/100) and feature_value>=lower_limit)):
-        print_text(translator.translate(self, 'Warning: Approaching discharge', dest='de',  src='auto', **kwargs))
+        print_text(translator.translate( 'Warning: Approaching discharge', dest='de',  src='auto'))
         print_text('Warning: Approaching discharge') 
 
 def check_upper_threshold_limit(upper_limit, feature_value):
