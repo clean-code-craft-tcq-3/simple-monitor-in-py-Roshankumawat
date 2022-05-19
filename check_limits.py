@@ -37,7 +37,7 @@ def check_upper_threshold_limit(upper_limit, feature_value):
         print_text('Warning: Approaching charge-peak')
         
 def get_unit_from_feature(feature_value, feature):
-    return re.sub('[0-9]',"", feature_value)
+    return re.sub('-|[0-9]',"", feature_value)
     
 def get_value_from_feature(feature_value, feature):
     return int(re.sub('[A-Za-z]',"", feature_value))
