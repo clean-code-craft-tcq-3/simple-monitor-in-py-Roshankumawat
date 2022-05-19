@@ -2,6 +2,7 @@ import re
 #import googletrans
 from googletrans import Translator
 translator = Translator()
+dest_language=input("Enter language name: ")
 
 def battery_is_ok(temperature, soc, charge_rate):
     return(check_temperature(temperature) and check_soc(soc) and check_charge_rate(charge_rate))
@@ -32,7 +33,7 @@ def check_lower_threshold_limit(lower_limit, upper_limit, feature_value):
 
 def check_upper_threshold_limit(upper_limit, feature_value):
     if((feature_value>=(upper_limit-(upper_limit*5)/100) and feature_value<=upper_limit)):
-        print_text(translator.translate('Warning: Approaching charge-peak', dest='de'))
+        translate_warning('Warning: Approaching charge-peak',dest_language)
         print_text('Warning: Approaching charge-peak')
         
 def get_unit_from_feature(feature_value, feature):
@@ -51,17 +52,22 @@ def translate_warning(text, language):
     
 if __name__ == '__main__':
     
-    assert(get_unit_from_feature('20F', 'Temperature')=='F')
-    assert(get_value_from_feature('20C', 'Temperature') == 20)
+    assert(get_unit_from_feature('-1F', 'Temperature')=='F')
+    assert(get_value_from_feature('50C', 'Temperature') == 50)
     assert(check_temperature('1F') is True)
     assert(check_temperature('45C')is True)
     assert(check_temperature('46C')is False)
     assert(check_temperature('-1C')is False)
+    assert(check_temperature('44C')is True)
     assert(check_soc(20)is True)
     assert(check_soc(19)is False)
     assert(check_soc(80)is True)
     assert(check_soc(81)is False)
+    assert(check_soc(50)is True)
     assert(check_charge_rate(0.9)is False)
-    assert(check_charge_rate(0.8)is True)
+    assert(check_charge_rate(0)is True)
+    assert(check_charge_rate(1)is True)
+    assert(check_charge_rate(0.5)is True)
+    assert(check_charge_rate(-1)is False)
     assert(battery_is_ok('25F', 70, 0.7) is True)
     assert(battery_is_ok('50C', 85, 0) is False)
