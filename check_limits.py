@@ -54,8 +54,8 @@ if __name__ == '__main__':
     
     assert(get_unit_from_feature('-1F', 'Temperature')=='F')
     assert(get_value_from_feature('50C', 'Temperature') == 50)
-    assert(translate_warning('Warning: Approaching discharge')=='Warnung: Naht Entladung')
-    assert(translate_warning('Warning: Approaching charge-peak')=='Warnung: Ladespitze nähert sich')
+    assert(translate_warning('Warning: Approaching discharge','de')=='Warnung: Naht Entladung')
+    assert(translate_warning('Warning: Approaching charge-peak','de')=='Warnung: Ladespitze nähert sich')
     assert(check_temperature('1F') is True)
     assert(check_temperature('45C')is True)
     assert(check_temperature('46C')is False)
