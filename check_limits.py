@@ -1,18 +1,75 @@
+import re
+#import googletrans
+from googletrans import Translator
+translator = Translator()
+dest_language='de'
 
 def battery_is_ok(temperature, soc, charge_rate):
-  if temperature < 0 or temperature > 45:
-    print('Temperature is out of range!')
-    return False
-  elif soc < 20 or soc > 80:
-    print('State of Charge is out of range!')
-    return False
-  elif charge_rate > 0.8:
-    print('Charge rate is out of range!')
-    return False
+    return(check_temperature(temperature) and check_soc(soc) and check_charge_rate(charge_rate))
+       
+def check_temperature(temperature):
+    temperature= get_value_from_feature(temperature, 'Temperature')
+    return check_feature_limit(0,45,temperature, 'Temperature')
+      
+def check_soc(soc):
+    return check_feature_limit(20,80,soc, 'SOC')
+        
+def check_charge_rate(charge_rate):
+    return check_feature_limit(0,0.8,charge_rate, 'Charge_Rate')
 
-  return True
+def check_feature_limit(lower_limit, upper_limit, feature_value, feature):
+    check_lower_threshold_limit(lower_limit, upper_limit, feature_value)
+    check_upper_threshold_limit( upper_limit, feature_value)
+    if(feature_value<lower_limit or feature_value>upper_limit):
+        print(feature,":",feature_value, "is out of range")
+        return False
+    else:
+        return True
 
+def check_lower_threshold_limit(lower_limit, upper_limit, feature_value):   
+    if((feature_value<=(lower_limit+(upper_limit*5)/100) and feature_value>=lower_limit)):
+       
+        print_text('Warning: Approaching discharge') 
 
+def check_upper_threshold_limit(upper_limit, feature_value):
+    if((feature_value>=(upper_limit-(upper_limit*5)/100) and feature_value<=upper_limit)):
+        translate_warning('Warning: Approaching charge-peak',dest_language)
+        print_text('Warning: Approaching charge-peak')
+        
+def get_unit_from_feature(feature_value, feature):
+    return re.sub('-|[0-9]',"", feature_value)
+    
+def get_value_from_feature(feature_value, feature):
+    return int(re.sub('[A-Za-z]',"", feature_value))
+    
+def print_text(text):
+    print(text)
+    print(translate_warning(text, 'de'))
+          
+def translate_warning(text, language):
+    translated_text= translator.translate( text,  src='en', dest=language)
+    return(translated_text)
+    
 if __name__ == '__main__':
-  assert(battery_is_ok(25, 70, 0.7) is True)
-  assert(battery_is_ok(50, 85, 0) is False)
+    
+    assert(get_unit_from_feature('-1F', 'Temperature')=='F')
+    assert(get_value_from_feature('50C', 'Temperature') == 50)
+    #assert(translate_warning('Warning: Approaching discharge','de')=='Warnung: Naht Entladung')
+    #assert(translate_warning('Warning: Approaching charge-peak','de')=='Warnung: Ladespitze nähert sich')
+    assert(check_temperature('1F') is True)
+    assert(check_temperature('45C')is True)
+    assert(check_temperature('46C')is False)
+    assert(check_temperature('-1C')is False)
+    assert(check_temperature('44C')is True)
+    assert(check_soc(20)is True)
+    assert(check_soc(19)is False)
+    assert(check_soc(80)is True)
+    assert(check_soc(81)is False)
+    assert(check_soc(50)is True)
+    assert(check_charge_rate(0.9)is False)
+    assert(check_charge_rate(0)is True)
+    assert(check_charge_rate(1)is False)
+    assert(check_charge_rate(0.5)is True)
+    assert(check_charge_rate(-1)is False)
+    assert(battery_is_ok('25F', 70, 0.7) is True)
+    assert(battery_is_ok('50C', 85, 0) is False)
