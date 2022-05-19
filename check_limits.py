@@ -68,7 +68,7 @@ if __name__ == '__main__':
     assert(check_soc(50)is True)
     assert(check_charge_rate(0.9)is False)
     assert(check_charge_rate(0)is True)
-    assert(check_charge_rate(1)is True)
+    assert(check_charge_rate(1)is False)
     assert(check_charge_rate(0.5)is True)
     assert(check_charge_rate(-1)is False)
     assert(battery_is_ok('25F', 70, 0.7) is True)
